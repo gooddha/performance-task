@@ -21,15 +21,46 @@ function prepareData(result) {
 
 // TODO: реализовать
 // показать значение метрики за несколько день
-function showMetricByPeriod() {
+function showMetricByPeriod(data, page, name, period) {
+
+
+
 }
 
 // показать сессию пользователя
 function showSession() {
+
+
+
 }
 
 // сравнить метрику в разных срезах
-function compareMetric() {
+function compareMetricByPlatforms(data, page, name, date) {
+	console.log(`Compare metric "${name}" by platforms`);
+
+	let platforms = [...new Set(data.map(item => item.additional.platform))];
+	let table = {};
+
+	platforms.forEach(platform => {
+		let filtered = data.filter(item => item.additional.platform == platform);
+		table[platform] = addMetricByDate(filtered, page, name, date)
+	})
+
+	console.table(table);
+}
+
+function compareMetricByVendors(data, page, name, date) {
+	console.log(`Compare metric "${name}" by vendors`);
+
+	let vendors = [...new Set(data.map(item => item.additional.vendor))];
+	let table = {};
+
+	vendors.forEach(vendor => {
+		let filtered = data.filter(item => item.additional.vendor == vendor);
+		table[vendor] = addMetricByDate(filtered, page, name, date)
+	})
+
+	console.table(table);
 }
 
 // любые другие сценарии, которые считаете полезными
@@ -59,13 +90,9 @@ function calcMetricsByDate(data, page, date) {
 	let table = {};
 	table.connect = addMetricByDate(data, page, 'connect', date);
 	table.ttfb = addMetricByDate(data, page, 'ttfb', date);
-	// table.load = addMetricByDate(data, page, 'load', date);
-	// table.square = addMetricByDate(data, page, 'square', date);
-	// table.load = addMetricByDate(data, page, 'load', date);
-	// table.generate = addMetricByDate(data, page, 'generate', date);
-	// table.draw = addMetricByDate(data, page, 'draw', date);
 
 	console.table(table);
+	console.log('-----------')
 };
 
 fetch('https://shri.yandex/hw/stat/data?counterId=D8F28E59-3339-11E9-9ED9-9F93090795B9')
@@ -73,7 +100,13 @@ fetch('https://shri.yandex/hw/stat/data?counterId=D8F28E59-3339-11E9-9ED9-9F9309
 	.then(result => {
 		let data = prepareData(result);
 
-		calcMetricsByDate(data, 'send test', '2021-10-30');
+		calcMetricsByDate(data, 'slider', '2021-10-30');
+		compareMetricByPlatforms(data, 'slider', 'connect', '2021-10-30');
+		compareMetricByPlatforms(data, 'slider', 'ttfb', '2021-10-30');
+		compareMetricByVendors(data, 'slider', 'connect', '2021-10-30');
+		compareMetricByVendors(data, 'slider', 'ttfb', '2021-10-30');
+
+		showMetricByPeriod(data, 'slider', 'connect', { start: '2021-10-30', end: '2021-10-30' })
 
 		// добавить свои сценарии, реализовать функции выше
 	});

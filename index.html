@@ -13,8 +13,10 @@
     <h1>Домашнее задание по теме Performance</h1>
     <hr>
     <h2>Сбор метрик</h2>
+    <h2><a href="stats.html" style="color: white">Посмотреть метрики</a></h2>
     <div class="wrapper">
       <div id="gallery">
+
         <div class="photos">
           <img src="img/Chrysanthemum.jpg" class="showed" alt="">
           <img src="img/Desert.jpg" alt="">
@@ -42,7 +44,8 @@
     counter.init('D8F28E59-3339-11E9-9ED9-9F93090795B9', String(Math.random()).substr(2, 12), 'slider');
     counter.setAdditionalParams({
       env: ['production', 'develope'][Math.floor(Math.random() * 2)],
-      platform: navigator.platform
+      platform: navigator.platform,
+      vendor: navigator.vendor
     });
 
     counter.send('connect', performance.timing.connectEnd - performance.timing.connectStart);
