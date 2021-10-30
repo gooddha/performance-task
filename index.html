@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JS Slider</title>
+  <title>JS Slider | SHRI Performance Task</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 
@@ -39,14 +39,14 @@
 
     let counter = new Counter();
 
-    counter.init('D8F28E50-3339-11EC-9EDF-9F93090795B1', String(Math.random()).substr(2, 12), 'send test');
+    counter.init('D8F28E59-3339-11E9-9ED9-9F93090795B9', String(Math.random()).substr(2, 12), 'slider');
     counter.setAdditionalParams({
       env: ['production', 'develope'][Math.floor(Math.random() * 2)],
       platform: navigator.platform
     });
 
-    // counter.send('connect', performance.timing.connectEnd - performance.timing.connectStart);
-    // counter.send('ttfb', performance.timing.responseEnd - performance.timing.requestStart);
+    counter.send('connect', performance.timing.connectEnd - performance.timing.connectStart);
+    counter.send('ttfb', performance.timing.responseEnd - performance.timing.requestStart);
 
     // let timeStart = Date.now();
 
