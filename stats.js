@@ -49,15 +49,15 @@ function compareMetricByPlatforms(data, page, name, date) {
 	console.table(table);
 }
 
-function compareMetricByVendors(data, page, name, date) {
-	console.log(`Compare metric "${name}" by vendors`);
+function compareMetricByUserAgents(data, page, name, date) {
+	console.log(`Compare metric "${name}" by user agents`);
 
-	let vendors = [...new Set(data.map(item => item.additional.vendor))];
+	let userAgents = [...new Set(data.map(item => item.additional.userAgent))];
 	let table = {};
 
-	vendors.forEach(vendor => {
-		let filtered = data.filter(item => item.additional.vendor == vendor);
-		table[vendor] = addMetricByDate(filtered, page, name, date)
+	userAgents.forEach(userAgent => {
+		let filtered = data.filter(item => item.additional.userAgent == userAgent);
+		table[userAgent] = addMetricByDate(filtered, page, name, date)
 	})
 
 	console.table(table);
@@ -103,8 +103,8 @@ fetch('https://shri.yandex/hw/stat/data?counterId=D8F28E59-3339-11E9-9ED9-9F9309
 		calcMetricsByDate(data, 'slider', '2021-10-30');
 		compareMetricByPlatforms(data, 'slider', 'connect', '2021-10-30');
 		compareMetricByPlatforms(data, 'slider', 'ttfb', '2021-10-30');
-		compareMetricByVendors(data, 'slider', 'connect', '2021-10-30');
-		compareMetricByVendors(data, 'slider', 'ttfb', '2021-10-30');
+		compareMetricByUserAgents(data, 'slider', 'connect', '2021-10-30');
+		compareMetricByUserAgents(data, 'slider', 'ttfb', '2021-10-30');
 
 		showMetricByPeriod(data, 'slider', 'connect', { start: '2021-10-30', end: '2021-10-30' })
 

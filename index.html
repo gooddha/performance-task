@@ -45,7 +45,7 @@
     counter.setAdditionalParams({
       env: ['production', 'develope'][Math.floor(Math.random() * 2)],
       platform: navigator.platform,
-      vendor: navigator.vendor
+      userAgent: navigator.userAgent
     });
 
     counter.send('connect', performance.timing.connectEnd - performance.timing.connectStart);
