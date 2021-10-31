@@ -63,6 +63,20 @@ function compareMetricByUserAgents(data, page, name, date) {
 	console.table(table);
 }
 
+function compareMetricByEnv(data, page, name, date) {
+	console.log(`Compare metric "${name}" by environment`);
+
+	let envs = [...new Set(data.map(item => item.additional.env))];
+	let table = {};
+
+	envs.forEach(env => {
+		let filtered = data.filter(item => item.additional.env == env);
+		table[env] = addMetricByDate(filtered, page, name, date)
+	})
+
+	console.table(table);
+}
+
 // любые другие сценарии, которые считаете полезными
 
 
@@ -105,6 +119,8 @@ fetch('https://shri.yandex/hw/stat/data?counterId=D8F28E59-3339-11E9-9ED9-9F9309
 		compareMetricByPlatforms(data, 'slider', 'ttfb', '2021-10-30');
 		compareMetricByUserAgents(data, 'slider', 'connect', '2021-10-30');
 		compareMetricByUserAgents(data, 'slider', 'ttfb', '2021-10-30');
+		compareMetricByEnv(data, 'slider', 'connect', '2021-10-30');
+		compareMetricByEnv(data, 'slider', 'ttfb', '2021-10-30');
 
 		showMetricByPeriod(data, 'slider', 'connect', { start: '2021-10-30', end: '2021-10-30' })
 
