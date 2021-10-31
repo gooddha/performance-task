@@ -104,6 +104,7 @@ function calcMetricsByDate(data, page, date) {
 	let table = {};
 	table.connect = addMetricByDate(data, page, 'connect', date);
 	table.ttfb = addMetricByDate(data, page, 'ttfb', date);
+	table.fcp = addMetricByDate(data, page, 'fcp', date);
 
 	console.table(table);
 	console.log('-----------')
@@ -114,13 +115,13 @@ fetch('https://shri.yandex/hw/stat/data?counterId=D8F28E59-3339-11E9-9ED9-9F9309
 	.then(result => {
 		let data = prepareData(result);
 
-		calcMetricsByDate(data, 'slider', '2021-10-30');
-		compareMetricByPlatforms(data, 'slider', 'connect', '2021-10-30');
-		compareMetricByPlatforms(data, 'slider', 'ttfb', '2021-10-30');
-		compareMetricByUserAgents(data, 'slider', 'connect', '2021-10-30');
-		compareMetricByUserAgents(data, 'slider', 'ttfb', '2021-10-30');
-		compareMetricByEnv(data, 'slider', 'connect', '2021-10-30');
-		compareMetricByEnv(data, 'slider', 'ttfb', '2021-10-30');
+		calcMetricsByDate(data, 'slider', '2021-10-31');
+		compareMetricByPlatforms(data, 'slider', 'connect', '2021-10-31');
+		compareMetricByPlatforms(data, 'slider', 'ttfb', '2021-10-31');
+		compareMetricByUserAgents(data, 'slider', 'connect', '2021-10-31');
+		compareMetricByUserAgents(data, 'slider', 'ttfb', '2021-10-31');
+		compareMetricByEnv(data, 'slider', 'connect', '2021-10-31');
+		compareMetricByEnv(data, 'slider', 'ttfb', '2021-10-31');
 
 		showMetricByPeriod(data, 'slider', 'connect', { start: '2021-10-30', end: '2021-10-30' })
 

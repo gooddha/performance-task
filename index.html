@@ -51,13 +51,11 @@
     counter.send('connect', performance.timing.connectEnd - performance.timing.connectStart);
     counter.send('ttfb', performance.timing.responseEnd - performance.timing.requestStart);
 
-
     new PerformanceObserver((entryList) => {
       for (const entry of entryList.getEntriesByName('first-contentful-paint')) {
-        console.log('FCP candidate:', entry.startTime, entry);
+        counter.send('fcp', entry.startTime);
       }
     }).observe({ type: 'paint', buffered: true });
-
 
   </script>
   </div>
