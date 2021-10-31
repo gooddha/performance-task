@@ -37,8 +37,8 @@ function showSession() {
 // сравнить метрику в разных срезах
 function compareMetricByPlatforms(data, page, name, date) {
 	console.log(`Compare metric "${name}" by platforms`);
-
-	let platforms = [...new Set(data.map(item => item.additional.platform))];
+	let filterDataByDate = data.filter(item => item.timestamp.split('T')[0] == date);
+	let platforms = [...new Set(filterDataByDate.map(item => item.additional.platform))];
 	let table = {};
 
 	platforms.forEach(platform => {
@@ -52,7 +52,8 @@ function compareMetricByPlatforms(data, page, name, date) {
 function compareMetricByUserAgents(data, page, name, date) {
 	console.log(`Compare metric "${name}" by user agents`);
 
-	let userAgents = [...new Set(data.map(item => item.additional.userAgent))];
+	let filterDataByDate = data.filter(item => item.timestamp.split('T')[0] == date);
+	let userAgents = [...new Set(filterDataByDate.map(item => item.additional.userAgent))];
 	let table = {};
 
 	userAgents.forEach(userAgent => {
@@ -65,8 +66,8 @@ function compareMetricByUserAgents(data, page, name, date) {
 
 function compareMetricByEnv(data, page, name, date) {
 	console.log(`Compare metric "${name}" by environment`);
-
-	let envs = [...new Set(data.map(item => item.additional.env))];
+	let filterDataByDate = data.filter(item => item.timestamp.split('T')[0] == date);
+	let envs = [...new Set(filterDataByDate.map(item => item.additional.env))];
 	let table = {};
 
 	envs.forEach(env => {
@@ -105,6 +106,7 @@ function calcMetricsByDate(data, page, date) {
 	table.connect = addMetricByDate(data, page, 'connect', date);
 	table.ttfb = addMetricByDate(data, page, 'ttfb', date);
 	table.fcp = addMetricByDate(data, page, 'fcp', date);
+	table.lcp = addMetricByDate(data, page, 'lcp', date);
 
 	console.table(table);
 	console.log('-----------')
@@ -118,8 +120,10 @@ fetch('https://shri.yandex/hw/stat/data?counterId=D8F28E59-3339-11E9-9ED9-9F9309
 		calcMetricsByDate(data, 'slider', '2021-10-31');
 		compareMetricByPlatforms(data, 'slider', 'connect', '2021-10-31');
 		compareMetricByPlatforms(data, 'slider', 'ttfb', '2021-10-31');
+		compareMetricByPlatforms(data, 'slider', 'fcp', '2021-10-31');
 		compareMetricByUserAgents(data, 'slider', 'connect', '2021-10-31');
 		compareMetricByUserAgents(data, 'slider', 'ttfb', '2021-10-31');
+		compareMetricByUserAgents(data, 'slider', 'fcp', '2021-10-31');
 		compareMetricByEnv(data, 'slider', 'connect', '2021-10-31');
 		compareMetricByEnv(data, 'slider', 'ttfb', '2021-10-31');
 

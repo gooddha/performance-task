@@ -57,6 +57,12 @@
       }
     }).observe({ type: 'paint', buffered: true });
 
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        counter.send('lcp', entry.startTime);
+      }
+    }).observe({ type: 'largest-contentful-paint', buffered: true });
+
   </script>
   </div>
 </body>
